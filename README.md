@@ -1,3 +1,16 @@
+Fork as <https://github.com/flyskywhy/YOLOv5-Lite> that diff with <https://github.com/ppogg/YOLOv5-Lite>:
+
+* `export.py`
+```
+-    parser.add_argument('--concat', action='store_false', help='concat or not')
++    parser.add_argument('--concat', action='store_true', help='concat or not')
+```
+to let `concat` be `False` if not type `--concat` after `python export.py` on command line, e.g.
+
+    python export.py --weights runs/yolov5Lite-e_wrgb/exp/weights/best.pt --grid --img 416
+
+so that the inference result format is same with <https://github.com/ultralytics/yolov5> , and so that maybe not compatible with `android_demo/` and `cpp_demo`.
+
 # YOLOv5-Lite：Lighter, faster and easier to deploy   ![](https://zenodo.org/badge/DOI/10.5281/zenodo.5241425.svg)
 
 ![论文插图](https://user-images.githubusercontent.com/82716366/167448925-a431d3a4-ad5d-491d-be95-c90701122a54.png)
