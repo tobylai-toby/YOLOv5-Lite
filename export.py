@@ -12,6 +12,7 @@ sys.path.append('./')  # to run '$ python *.py' files in subdirectories
 
 import torch
 import torch.nn as nn
+from torch.utils.mobile_optimizer import optimize_for_mobile
 
 import models
 from models.experimental import attempt_load
@@ -69,6 +70,15 @@ if __name__ == '__main__':
     #     print('TorchScript export success, saved as %s' % f)
     # except Exception as e:
     #     print('TorchScript export failure: %s' % e)
+
+    try:
+        print('\nStarting TorchScript-Lite export with torch %s...' % torch.__version__)
+        f = opt.weights.replace('.pt', '.ptl')  # filename
+        ts = torch.jit.trace(model, img, strict=False)
+        optimize_for_mobile(ts)._save_for_lite_interpreter(f)
+        print('TorchScript-Lite export success, saved as %s' % f)
+    except Exception as e:
+        print('TorchScript-Lite export failure: %s' % e)
 
     # ONNX export
     try:
